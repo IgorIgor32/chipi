@@ -38,39 +38,24 @@
         transform: translateY(100vh);
       }
     }
-
-    #chipi-button {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 80px;
-      height: 80px;
-      background-color: red;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
   <div id="background"></div>
   <div id="snowflake-container"></div>
 
-  <button id="chipi-button" onclick="startAudio()">Chipi</button>
+  <button onclick="startAudio()">Start Audio</button>
 
-  <audio autoplay loop id="playAudio">
-    <source src="audio/source.mp3" type="audio/mp3">
+  <audio id="background-audio" loop>
+    <source src="chipi.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
   </audio>
 
   <script>
     function startAudio() {
-      const audio = document.getElementById('playAudio');
+      const audio = document.getElementById('background-audio');
       audio.play();
-      document.getElementById('chipi-button').remove(); // Remove the button after starting audio
+      document.querySelector('button').remove(); // Remove the button after starting audio
 
       // Create snowflakes
       const snowflakeContainer = document.getElementById('snowflake-container');
