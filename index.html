@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    #snowflake-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .snowflake {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="background"></div>
+  <div id="snowflake-container"></div>
+
+  <audio id="background-audio" loop>
+    <source src="chipi.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    // Set animated gif as background
+    document.getElementById('background').style.background = 'url("https://media1.tenor.com/m/mJ_Og97j5WwAAAAC/chipi-chapa.gif")';
+    document.getElementById('background').style.backgroundSize = 'cover';
+    document.getElementById('background').style.backgroundRepeat = 'no-repeat';
+
+    // Start background audio
+    const audio = document.getElementById('background-audio');
+    audio.play();
+
+    // Create snowflakes
+    const snowflakeContainer = document.getElementById('snowflake-container');
+    const numSnowflakes = 50;
+
+    for (let i = 0; i < numSnowflakes; i++) {
+      createSnowflake();
+    }
+
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowflake.style.width = Math.random() * 20 + 'px';
+      snowflake.style.height = snowflake.style.width;
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+      snowflakeContainer.appendChild(snowflake);
+      setTimeout(() => {
+        snowflake.remove();
+        createSnowflake();
+      }, 3000); // Recreate snowflake after 3 seconds
+    }
+  </script>
+</body>
+</html>
