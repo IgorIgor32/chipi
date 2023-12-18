@@ -38,48 +38,62 @@
         transform: translateY(100vh);
       }
     }
+
+    #chipi-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 80px;
+      height: 80px;
+      background-color: red;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="background"></div>
   <div id="snowflake-container"></div>
 
-  <audio id="background-audio" loop>
-    <source src="chipi.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
+  <button id="chipi-button" onclick="startAudio()">Chipi</button>
+
+  <audio autoplay loop id="playAudio">
+    <source src="audio/source.mp3" type="audio/mp3">
   </audio>
 
   <script>
-    // Set animated gif as background
-    document.getElementById('background').style.background = 'url("https://media1.tenor.com/m/mJ_Og97j5WwAAAAC/chipi-chapa.gif")';
-    document.getElementById('background').style.backgroundSize = 'cover';
-    document.getElementById('background').style.backgroundRepeat = 'no-repeat';
+    function startAudio() {
+      const audio = document.getElementById('playAudio');
+      audio.play();
+      document.getElementById('chipi-button').remove(); // Remove the button after starting audio
 
-    // Start background audio
-    const audio = document.getElementById('background-audio');
-    audio.play();
+      // Create snowflakes
+      const snowflakeContainer = document.getElementById('snowflake-container');
+      const numSnowflakes = 50;
 
-    // Create snowflakes
-    const snowflakeContainer = document.getElementById('snowflake-container');
-    const numSnowflakes = 50;
-
-    for (let i = 0; i < numSnowflakes; i++) {
-      createSnowflake();
-    }
-
-    function createSnowflake() {
-      const snowflake = document.createElement('div');
-      snowflake.className = 'snowflake';
-      snowflake.style.width = Math.random() * 20 + 'px';
-      snowflake.style.height = snowflake.style.width;
-      snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.animationDuration = (Math.random() * 2 + 2) + 's';
-
-      snowflakeContainer.appendChild(snowflake);
-      setTimeout(() => {
-        snowflake.remove();
+      for (let i = 0; i < numSnowflakes; i++) {
         createSnowflake();
-      }, 3000); // Recreate snowflake after 3 seconds
+      }
+
+      function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.style.width = Math.random() * 20 + 'px';
+        snowflake.style.height = snowflake.style.width;
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+        snowflakeContainer.appendChild(snowflake);
+        setTimeout(() => {
+          snowflake.remove();
+          createSnowflake();
+        }, 3000); // Recreate snowflake after 3 seconds
+      }
     }
   </script>
 </body>
